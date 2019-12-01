@@ -19,7 +19,7 @@ if six.PY2:
 else:
     maketrans = bytes.maketrans
 
-__version__ = 0, 3, 0
+__version__ = 0, 4, 0
 __version_string__ = '.'.join(str(x) for x in __version__)
 
 __author__ = 'Doug Napoleone, Samuel Marks, Eric Frederich'
