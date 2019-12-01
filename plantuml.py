@@ -50,12 +50,13 @@ class PlantUMLHTTPError(PlantUMLConnectionError):
     """
 
     def __init__(self, response, content, *args, **kwdargs):
-        super(PlantUMLConnectionError, self).__init__(*args)
+        if len(args) == 0:
+            _args = tuple("%d: %s" % (response.status, response.reason))
+        else:
+            _args = args
+        super(PlantUMLConnectionError, self).__init__(*_args, **kwdargs)
         self.response = response
         self.content = content
-        if not self.message:
-            self.message = "%d: %s" % (
-                self.response.status, self.response.reason)
 
 
 def deflate_and_encode(plantuml_text):
@@ -109,7 +110,7 @@ class PlantUML(object):
         if python_version_tuple()[0] == '2':
             from urlparse import urlparse
         else:
-            from urllib.parse.urlparse import urlparse
+            from urllib.parse import urlparse
         try:
             import socks
 
