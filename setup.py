@@ -1,12 +1,20 @@
 from setuptools import setup
 
+with open('README.md', 'r') as fh:
+    long_desc = fh.read()
+
 from plantuml import __author__, __version_string__, __email__
+
+requirements=[
+    'httplib2',
+    'six',
+]
 
 setup(
     name='plantuml',
     version=__version_string__,
     description='',
-    long_description=open('README.md', 'r').read(),
+    long_description=long_desc,
     url='https://github.com/dougn/python-plantuml/',
     author=__author__,
     author_email=__email__,
@@ -26,10 +34,8 @@ setup(
         'Topic :: Utilities',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    install_requires=[
-        'httplib2',
-        'six',
-    ],
+    setup_requires=requirements,
+    install_requires=requirements,
     keywords=[
         'plantuml',
         'uml',
