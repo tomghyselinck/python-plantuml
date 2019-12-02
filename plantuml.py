@@ -4,17 +4,37 @@ from __future__ import print_function
 
 import base64
 import string
+import sys
 from argparse import ArgumentParser
 from io import open
 from os import environ, path, makedirs
 from platform import python_version_tuple
 from zlib import compress
 
-import httplib2
-import six
-from six.moves.urllib.parse import urlencode
+try:
+    import httplib2
+except ImportError:
+    # FIXME - Workaround for loading from setup.py
+    print('[WARNING] Failed to load package httplib2', file=sys.stderr)
+    httplib2 = None
 
-if six.PY2:
+try:
+    import six
+except ImportError:
+    # FIXME - Workaround for loading from setup.py
+    print('[WARNING] Failed to load package six', file=sys.stderr)
+    six = None
+
+try:
+    from six.moves.urllib.parse import urlencode
+except ImportError:
+    # FIXME - Workaround for loading from setup.py
+    print('[WARNING] Failed to load package six.moves.urllib.parse.urlencode',
+          file=sys.stderr)
+    urlencode = None
+
+# if six.PY2:
+if python_version_tuple()[0] == '2':
     from string import maketrans
 else:
     maketrans = bytes.maketrans
